@@ -173,7 +173,7 @@ class Computer(tk.Frame):
         self.btn_spot25.grid(row = 5, column = 4, sticky = "news")        
         
         self.lbl_blank = tk.Label(self, text = "-------------------------------------------------------")
-        self.lbl_blank.grid(row = 6, column = 0, sticky = "news")        
+        self.lbl_blank.grid(row = 6, column = 0, sticky = "news", columnspan = 5)        
         
         
         
@@ -271,8 +271,14 @@ class Player(tk.Frame):
         self.lbl_blank = tk.Label(self, text = "-------------------------------------------------------")
         self.lbl_blank.grid(row = 6, column = 0, columnspan = 5)        
         
-        self.btn_done = tk.Button(self, text = "Done", font = DEFAULT)
+        self.btn_done = tk.Button(self, text = "Done", font = DEFAULT, command = self.show)
         self.btn_done.grid(row = 7, column = 0, columnspan = 5)
+        
+    def show(self):
+        popup = tk.Tk()
+        popup.title("BattleShip")
+        frm_comp = Computer(popup)
+        frm_comp.grid(row = 0, column = 0)            
         
 if __name__ == "__main__":
     root = tk.Tk()
@@ -285,6 +291,7 @@ if __name__ == "__main__":
     
     screens[0].grid(row = 0, column = 0, sticky = "news")    
     screens[1].grid(row = 0, column = 0, sticky = "news")
+
     Screen.current = 0
     Screen.switch_frame()
 
