@@ -3,7 +3,8 @@
 #3/6/2020
 
 import tkinter as tk
-from tkinter import scrolledtext
+from tkinter import scrolledtext 
+
 import random as rd
 
 #global variables
@@ -25,15 +26,20 @@ class MainMenu(tk.Frame):
         self.lbl_title.grid(row = 0, column = 0, columnspan = 3, sticky = "news")
         
         self.btn_play = tk.Button(self, text = "PLAY", font = DEFAULT, command = self.player_setup)
-        self.btn_play.grid(row = 1, column = 0)
+        self.btn_play.grid(row = 1, column = 0,  columnspan = 3, sticky = "news")
         
         self.btn_play = tk.Button(self, text = "HOW TO PLAY", font = DEFAULT, command = self.help)
-        self.btn_play.grid(row = 2, column = 0)
+        self.btn_play.grid(row = 2, column = 0,  columnspan = 3, sticky = "news")
+        
+        #self.grid_rowconfigure(0, weight=1)
+        #self.grid_rowconfigure(2, weight=1)
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_columnconfigure(2, weight=1)
         
     def help(self):
         popup = tk.Tk()
         popup.title("Help")
-        
+        root.withdraw()
         frm_help = Help(popup)
         frm_help.grid(row = 0, column = 0)
         
@@ -60,6 +66,7 @@ class Help(tk.Frame):
     
         self.scroll = scrolledtext.ScrolledText(self, width = scroll_width, height = scroll_height,
                                                wrap = tk.WORD)
+        
         self.scroll.grid(row = 1, column = 0)        
         help_text = """Game Objective:
         
@@ -79,8 +86,12 @@ When all of the squares that one your ships occupies have been hit, the ship wil
         
         self.scroll.insert("insert", help_text)
     
-        self.btn_cancel = tk.Button(self, text = "Back", font = DEFAULT, command = self.parent.destroy)
+        self.btn_cancel = tk.Button(self, text = "Back", font = DEFAULT, command = self.ressurect)
         self.btn_cancel.grid(row = 2, column = 0)
+        
+    def ressurect(self):
+        self.parent.destroy()
+        root.deiconify()
     
 class Computer(tk.Frame):
     def __init__(self, parent):
@@ -95,7 +106,7 @@ class Computer(tk.Frame):
         self.grid_columnconfigure(5, weight = 1)
         
         self.lbl_player = tk.Label(self, text = "Computer", font = ("Arial", 20))
-        self.lbl_player.grid(row = 0, column = 0, columnspan = 3, sticky = "news")
+        self.lbl_player.grid(row = 0, column = 1, columnspan = 3, sticky = "news")
         
         self.btn_spot1 = tk.Button(self)
         self.btn_spot1.grid(row = 1, column = 0, sticky = "news")
@@ -175,7 +186,8 @@ class Computer(tk.Frame):
         self.lbl_blank = tk.Label(self, text = "-------------------------------------------------------")
         self.lbl_blank.grid(row = 6, column = 0, sticky = "news", columnspan = 5)        
         
-        
+           
+
         
 class Player(tk.Frame):
     def __init__(self):
@@ -277,13 +289,15 @@ class Player(tk.Frame):
     def show(self):
         popup = tk.Tk()
         popup.title("BattleShip")
+        self.btn_done.destroy()
         frm_comp = Computer(popup)
         frm_comp.grid(row = 0, column = 0)            
-        
+   
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("BattleShip")
     root.grid_columnconfigure(0, weight = 1)
+    root.grid_rowconfigure(0, weight=1)
     
     #MainMenu --> screens[0]
 
@@ -294,5 +308,7 @@ if __name__ == "__main__":
 
     Screen.current = 0
     Screen.switch_frame()
-
+    
+    
+root.resizable(False, False)
 root.mainloop()
