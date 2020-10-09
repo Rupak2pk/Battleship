@@ -4,8 +4,9 @@
 
 import tkinter as tk
 from tkinter import scrolledtext 
-
+from tkinter import dnd
 import random as rd
+from tkinter import dnd
 
 #global variables
 DEFAULT = ("Arial", 15)
@@ -30,9 +31,7 @@ class MainMenu(tk.Frame):
         
         self.btn_play = tk.Button(self, text = "HOW TO PLAY", font = DEFAULT, command = self.help)
         self.btn_play.grid(row = 2, column = 0,  columnspan = 3, sticky = "news")
-        
-        #self.grid_rowconfigure(0, weight=1)
-        #self.grid_rowconfigure(2, weight=1)
+
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(2, weight=1)
         
@@ -44,12 +43,6 @@ class MainMenu(tk.Frame):
         frm_help.grid(row = 0, column = 0)
         
     def player_setup(self):
-        
-        #popup = tk.Tk()
-        #popup.title("Player")
-        
-        #frm_player = Computer(popup)
-        #frm_player.grid(row = 0, column = 0)
         
         Screen.current = 1
         Screen.switch_frame()        
@@ -98,94 +91,23 @@ class Computer(tk.Frame):
         tk.Frame.__init__(self, master = parent)
         self.parent = parent
         
-        self.grid_columnconfigure(0, weight = 1)
-        self.grid_columnconfigure(1, weight = 1)
-        self.grid_columnconfigure(2, weight = 1)
-        self.grid_columnconfigure(3, weight = 1)
-        self.grid_columnconfigure(4, weight = 1)
-        self.grid_columnconfigure(5, weight = 1)
+        for i in range(6):
+            self.grid_columnconfigure(i, weight = 1)
+
+        Computer_rows = 5
+        Computer_columns = 5
         
-        self.lbl_player = tk.Label(self, text = "Computer", font = ("Arial", 20))
-        self.lbl_player.grid(row = 0, column = 1, columnspan = 3, sticky = "news")
+        for x in range(Computer_rows):
+            for i in range(Computer_columns):
+                self.btn_spot = tk.Button(self)
+                self.btn_spot.grid(row = i+1, column = x, sticky = "news")      
         
-        self.btn_spot1 = tk.Button(self)
-        self.btn_spot1.grid(row = 1, column = 0, sticky = "news")
-        
-        self.btn_spot2 = tk.Button(self)
-        self.btn_spot2.grid(row = 2, column = 0, sticky = "news")
-        
-        self.btn_spot3 = tk.Button(self)
-        self.btn_spot3.grid(row = 3, column = 0, sticky = "news") 
-        
-        self.btn_spot4 = tk.Button(self)
-        self.btn_spot4.grid(row = 4, column = 0, sticky = "news")
-        
-        self.btn_spot5 = tk.Button(self)
-        self.btn_spot5.grid(row = 5, column = 0, sticky = "news")        
-        
-        self.btn_spot6 = tk.Button(self)
-        self.btn_spot6.grid(row = 1, column = 1, sticky = "news")
-        
-        self.btn_spot7 = tk.Button(self)
-        self.btn_spot7.grid(row = 2, column = 1, sticky = "news")
-        
-        self.btn_spot8 = tk.Button(self)
-        self.btn_spot8.grid(row = 3, column = 1, sticky = "news")
-        
-        self.btn_spot9 = tk.Button(self)
-        self.btn_spot9.grid(row = 4, column = 1, sticky = "news")
-        
-        self.btn_spot10 = tk.Button(self)
-        self.btn_spot10.grid(row = 5, column = 1, sticky = "news")
-        
-        self.btn_spot11 = tk.Button(self)
-        self.btn_spot11.grid(row = 1, column = 2, sticky = "news")
-        
-        self.btn_spot12 = tk.Button(self)
-        self.btn_spot12.grid(row = 2, column = 2, sticky = "news")
-        
-        self.btn_spot13 = tk.Button(self)
-        self.btn_spot13.grid(row = 3, column = 2, sticky = "news")
-        
-        self.btn_spot14 = tk.Button(self)
-        self.btn_spot14.grid(row = 4, column = 2, sticky = "news")
-        
-        self.btn_spot15 = tk.Button(self)
-        self.btn_spot15.grid(row = 5, column = 2, sticky = "news")
-        
-        self.btn_spot16 = tk.Button(self)
-        self.btn_spot16.grid(row = 1, column = 3, sticky = "news")
-        
-        self.btn_spot17 = tk.Button(self)
-        self.btn_spot17.grid(row = 2, column = 3, sticky = "news")
-        
-        self.btn_spot18 = tk.Button(self)
-        self.btn_spot18.grid(row = 3, column = 3, sticky = "news")
-        
-        self.btn_spot19 = tk.Button(self)
-        self.btn_spot19.grid(row = 4, column = 3, sticky = "news")
-        
-        self.btn_spot20 = tk.Button(self)
-        self.btn_spot20.grid(row = 5, column = 3, sticky = "news")
-        
-        self.btn_spot21 = tk.Button(self)
-        self.btn_spot21.grid(row = 1, column = 4, sticky = "news")
-        
-        self.btn_spot22 = tk.Button(self)
-        self.btn_spot22.grid(row = 2, column = 4, sticky = "news")
-        
-        self.btn_spot23 = tk.Button(self)
-        self.btn_spot23.grid(row = 3, column = 4, sticky = "news")
-        
-        self.btn_spot24 = tk.Button(self)
-        self.btn_spot24.grid(row = 4, column = 4, sticky = "news")
-        
-        self.btn_spot25 = tk.Button(self)
-        self.btn_spot25.grid(row = 5, column = 4, sticky = "news")        
-        
+        self.lbl_computer = tk.Label(self, text = "Computer", font = ("Arial", 20))
+        self.lbl_computer.grid(row = 0, column = 1, columnspan = 3, sticky = "news")        
+            
         self.lbl_blank = tk.Label(self, text = "-------------------------------------------------------")
         self.lbl_blank.grid(row = 6, column = 0, sticky = "news", columnspan = 5)        
-        
+                
            
 
         
@@ -193,92 +115,20 @@ class Player(tk.Frame):
     def __init__(self):
         Screen.__init__(self)
         
-        self.grid_columnconfigure(0, weight = 1)
-        self.grid_columnconfigure(1, weight = 1)
-        self.grid_columnconfigure(2, weight = 1)
-        self.grid_columnconfigure(3, weight = 1)
-        self.grid_columnconfigure(4, weight = 1)
-        self.grid_columnconfigure(5, weight = 1)
-        self.grid_columnconfigure(6, weight = 1)
+        for i in range(7):
+            self.grid_columnconfigure(i, weight = 1)
+
+        Player_rows = 5
+        Player_columns = 5
+         
+        for x in range (Player_rows):
+            for i in range(Player_columns):
+                self.btn_spot = tk.Button(self)
+                self.btn_spot.grid(row = i+1, column = x, sticky = "news")              
+            
+        self.lbl_player = tk.Label(self, text = "Player", font = ("Arial", 20))
+        self.lbl_player.grid(row = 0, column = 0, columnspan = 5, sticky = "news")
         
-        
-        self.lbl_computer = tk.Label(self, text = "Player", font = ("Arial", 20))
-        self.lbl_computer.grid(row = 0, column = 0, columnspan = 5, sticky = "news")  
-        
-        self.btn_spot1 = tk.Button(self)
-        self.btn_spot1.grid(row = 1, column = 0, sticky = "news")
-        
-        self.btn_spot2 = tk.Button(self)
-        self.btn_spot2.grid(row = 2, column = 0, sticky = "news")
-        
-        self.btn_spot3 = tk.Button(self)
-        self.btn_spot3.grid(row = 3, column = 0, sticky = "news") 
-        
-        self.btn_spot4 = tk.Button(self)
-        self.btn_spot4.grid(row = 4, column = 0, sticky = "news")
-        
-        self.btn_spot5 = tk.Button(self)
-        self.btn_spot5.grid(row = 5, column = 0, sticky = "news")        
-        
-        self.btn_spot6 = tk.Button(self)
-        self.btn_spot6.grid(row = 1, column = 1, sticky = "news")
-        
-        self.btn_spot7 = tk.Button(self)
-        self.btn_spot7.grid(row = 2, column = 1, sticky = "news")
-        
-        self.btn_spot8 = tk.Button(self)
-        self.btn_spot8.grid(row = 3, column = 1, sticky = "news")
-        
-        self.btn_spot9 = tk.Button(self)
-        self.btn_spot9.grid(row = 4, column = 1, sticky = "news")
-        
-        self.btn_spot10 = tk.Button(self)
-        self.btn_spot10.grid(row = 5, column = 1, sticky = "news")
-        
-        self.btn_spot11 = tk.Button(self)
-        self.btn_spot11.grid(row = 1, column = 2, sticky = "news")
-        
-        self.btn_spot12 = tk.Button(self)
-        self.btn_spot12.grid(row = 2, column = 2, sticky = "news")
-        
-        self.btn_spot13 = tk.Button(self)
-        self.btn_spot13.grid(row = 3, column = 2, sticky = "news")
-        
-        self.btn_spot14 = tk.Button(self)
-        self.btn_spot14.grid(row = 4, column = 2, sticky = "news")
-        
-        self.btn_spot15 = tk.Button(self)
-        self.btn_spot15.grid(row = 5, column = 2, sticky = "news")
-        
-        self.btn_spot16 = tk.Button(self)
-        self.btn_spot16.grid(row = 1, column = 3, sticky = "news")
-        
-        self.btn_spot17 = tk.Button(self)
-        self.btn_spot17.grid(row = 2, column = 3, sticky = "news")
-        
-        self.btn_spot18 = tk.Button(self)
-        self.btn_spot18.grid(row = 3, column = 3, sticky = "news")
-        
-        self.btn_spot19 = tk.Button(self)
-        self.btn_spot19.grid(row = 4, column = 3, sticky = "news")
-        
-        self.btn_spot20 = tk.Button(self)
-        self.btn_spot20.grid(row = 5, column = 3, sticky = "news")
-        
-        self.btn_spot21 = tk.Button(self)
-        self.btn_spot21.grid(row = 1, column = 4, sticky = "news")
-        
-        self.btn_spot22 = tk.Button(self)
-        self.btn_spot22.grid(row = 2, column = 4, sticky = "news")
-        
-        self.btn_spot23 = tk.Button(self)
-        self.btn_spot23.grid(row = 3, column = 4, sticky = "news")
-        
-        self.btn_spot24 = tk.Button(self)
-        self.btn_spot24.grid(row = 4, column = 4, sticky = "news")
-        
-        self.btn_spot25 = tk.Button(self)
-        self.btn_spot25.grid(row = 5, column = 4, sticky = "news")
         
         self.lbl_blank = tk.Label(self, text = "-------------------------------------------------------")
         self.lbl_blank.grid(row = 6, column = 0, columnspan = 5)        
@@ -291,7 +141,8 @@ class Player(tk.Frame):
         popup.title("BattleShip")
         self.btn_done.destroy()
         frm_comp = Computer(popup)
-        frm_comp.grid(row = 0, column = 0)            
+        frm_comp.grid(row = 0, column = 0) 
+        popup.resizable(False, False)
    
 if __name__ == "__main__":
     root = tk.Tk()
